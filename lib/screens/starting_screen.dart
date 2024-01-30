@@ -8,7 +8,7 @@ class StartingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -21,16 +21,16 @@ class StartingScreen extends StatelessWidget {
 
               SizedBox(width: 30,),
 
-              _Simbolo(dirImagen: 'assets/O.png', width: 100, height: 100)
+              _Simbolo(dirImagen: 'assets/circulo.png', width: 100, height: 100)
             ],
           ),
 
           ElevatedButton(
             style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(Colors.black87),
-              shadowColor: MaterialStateProperty.all(Colors.white70),
-              elevation: MaterialStateProperty.all(5.5),
-              overlayColor: MaterialStateProperty.all(Colors.purple.shade800)
+              backgroundColor: MaterialStateProperty.all(Colors.white),
+              shadowColor: MaterialStateProperty.all(Colors.black),
+              elevation: MaterialStateProperty.all(5),
+              overlayColor: MaterialStateProperty.all(Colors.purple.shade800),
             ),
             onPressed: () {
 
@@ -42,7 +42,7 @@ class StartingScreen extends StatelessWidget {
               child: Text(
                 'Jugar',
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: Colors.black,
                   fontSize: 40,
                 ),
               ),
