@@ -15,8 +15,10 @@ class MyApp extends StatelessWidget {
       routes: {
         'start' :         ( _ ) =>  StartingScreen(),
         'choose':         ( _ ) =>  ChooseScreen(),
+        'singleplayer':   ( _ ) =>  SinglePlayerScreen(),
         'multiplayer':    ( _ ) =>  MultiPlayerScreen(),
-        'singleplayer':   ( _ ) =>  SinglePlayerScreen()
+        'desafios':       ( _ ) =>  DesafiosScreen(),
+        'estilos':        ( _ ) =>  EstilosScreen(),
       },
     );
   }

@@ -20,8 +20,6 @@ class ChooseScreen extends StatelessWidget {
             SizedBox(height: 95,),
 
             OptionsTable()
-
-
           ],
         ),
       )

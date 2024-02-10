@@ -10,15 +10,15 @@ class OptionsTable extends StatelessWidget {
       children: const [
         TableRow(
           children: [
-            _SingleCard( color: Color(0xffFF1212), image: 'assets/image1.png', name: 'UN JUGADOR', ),
-            _SingleCard( color: Color(0xff00C2FF), image: 'assets/image2.png', name: 'DOS JUGADORES' )
+            _SingleCard( color: Color(0xffFF1212), image: 'assets/image1.png', name: 'UN JUGADOR', direccion: 'singleplayer', ),
+            _SingleCard( color: Color(0xff00C2FF), image: 'assets/image2.png', name: 'DOS JUGADORES', direccion: 'multiplayer', )
           ]
         ),
 
         TableRow(
           children: [
-            _SingleCard( color: Color(0xffFF7008), image: 'assets/image3.png', name: 'DESAFIOS', ),
-            _SingleCard( color: Color(0xff1E6BFF), image: 'assets/image4.png', name: 'ESTILOS' )
+            _SingleCard( color: Color(0xffFF7008), image: 'assets/image3.png', name: 'DESAFIOS', direccion: 'desafios',),
+            _SingleCard( color: Color(0xff1E6BFF), image: 'assets/image4.png', name: 'ESTILOS', direccion: 'estilos', )
           ]
         )
       ],
@@ -31,34 +31,37 @@ class _SingleCard extends StatelessWidget {
   final Color color;
   final String image;
   final String name;
+  final String direccion;
   
   const _SingleCard({
     super.key, 
     required this.color, 
     required this.image, 
-    required this.name
+    required this.name, 
+    required this.direccion
   });
 
   @override
   Widget build(BuildContext context) {
 
-    return Container(
-      margin: const EdgeInsets.all(7.5),
-      height: 172,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(20)
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image( 
-            image: AssetImage(image),
-            fit: BoxFit.contain, 
-          ),
-
-          Container(
-            child: Column(
+    return GestureDetector(
+      onTap: () => Navigator.pushNamed(context, direccion),
+      child: Container(
+        margin: const EdgeInsets.all(7.5),
+        height: 172,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(20)
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image( 
+              image: AssetImage(image),
+              fit: BoxFit.contain, 
+            ),
+      
+            Column(
               children: [
                 Container(
                   width: 126,
@@ -68,9 +71,9 @@ class _SingleCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-
-                SizedBox(height: 5,),
-
+            
+                const SizedBox(height: 5,),
+            
                 Text(
                   name,
                   style: GoogleFonts.roboto(
@@ -80,9 +83,9 @@ class _SingleCard extends StatelessWidget {
                   )
                 )
               ],
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
