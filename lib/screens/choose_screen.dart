@@ -8,7 +8,7 @@ class ChooseScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
 
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 26),
