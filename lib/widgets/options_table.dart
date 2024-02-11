@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:tres_en_raya_con_provider/provider/provider.dart';
 
 class OptionsTable extends StatelessWidget {
   const OptionsTable({super.key});
@@ -44,8 +46,13 @@ class _SingleCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    final juegoProvider = Provider.of<JuegoProvider>(context);
+
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, direccion),
+      onTap: () {
+        Navigator.pushNamed(context, direccion);
+        juegoProvider.resetStates();
+      },
       child: Container(
         margin: const EdgeInsets.all(7.5),
         height: 172,

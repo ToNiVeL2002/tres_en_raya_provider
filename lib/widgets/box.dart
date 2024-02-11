@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 
 class Box extends StatelessWidget {
-  const Box({
-    super.key,
+  
+  final String? imagen;
+  final bool disponible;
+
+  Box({
+    super.key, 
+    this.imagen, 
+    required this.disponible
   });
 
   @override
@@ -14,6 +20,10 @@ class Box extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
       ),
+      child: Visibility(
+        visible: imagen != null && !disponible,
+        child: Image.asset(imagen ?? 'assets/image1.png')
+      )
     );
   }
 }
