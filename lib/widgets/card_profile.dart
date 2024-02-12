@@ -7,6 +7,8 @@ class CardProfile extends StatelessWidget {
   final String imagen;
   final String imagenSimbolo;
   final String nameT;
+  final double width;
+  final double height;
 
   const CardProfile({
     super.key, 
@@ -14,6 +16,8 @@ class CardProfile extends StatelessWidget {
     required this.imagen,
     required this.imagenSimbolo, 
     required this.nameT, 
+    required this.width, 
+    required this.height, 
   });
 
 
@@ -21,8 +25,8 @@ class CardProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(8),
-      width: 121,
-      height: 177,
+      width: width,
+      height: height,
       decoration: BoxDecoration(
         color: color,
         borderRadius: BorderRadius.circular(20)

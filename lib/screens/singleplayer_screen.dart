@@ -9,6 +9,9 @@ class SinglePlayerScreen extends StatelessWidget {
   
   @override
   Widget build(BuildContext context) {
+
+    final juegoProvider = Provider.of<JuegoProvider>(context);
+
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 23),
@@ -19,11 +22,11 @@ class SinglePlayerScreen extends StatelessWidget {
 
             const SizedBox(height: 46,),
 
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CardProfile(color: Color(0xff1263FF), imagen: 'assets/player1.png', imagenSimbolo: 'assets/X.png', nameT: 'Jugador'),
-                CardProfile(color: Color(0xffEF5F5F), imagen: 'assets/player2.png', imagenSimbolo: 'assets/circulo.png', nameT: 'Computadora'),
+                CardProfile(color: const Color(0xff1263FF), imagen: 'assets/player1.png', imagenSimbolo: 'assets/X.png', nameT: 'Jugador1', width: juegoProvider.playerTurn ? 151 : 121, height: juegoProvider.playerTurn ? 207 : 177,),
+                CardProfile(color: const Color(0xffEF5F5F), imagen: 'assets/player2.png', imagenSimbolo: 'assets/circulo.png', nameT: 'Jugador2', width: !juegoProvider.playerTurn ? 151 : 121, height: !juegoProvider.playerTurn ? 207 : 177,),
               ],
             ), 
 
