@@ -47,11 +47,13 @@ class _SingleCard extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final juegoProvider = Provider.of<JuegoProvider>(context);
+    final juegoMiniMaxProvider = Provider.of<JuegoMiniMaxProvider>(context);
 
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, direccion);
         juegoProvider.resetStates();
+        juegoMiniMaxProvider.resetStates();
       },
       child: Container(
         margin: const EdgeInsets.all(7.5),

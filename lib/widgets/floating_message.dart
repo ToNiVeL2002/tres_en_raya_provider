@@ -18,6 +18,7 @@ class FloatingMessage extends StatelessWidget {
 
     final screenSize = MediaQuery.of(context).size;
     final juegoProvider = Provider.of<JuegoProvider>(context);
+    final juegoMiniMaxProvider = Provider.of<JuegoMiniMaxProvider>(context);
 
     return Container(
       width: screenSize.width*0.85,
@@ -31,7 +32,8 @@ class FloatingMessage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Text(
-            juegoProvider.resultado,
+            // juegoProvider.resultado,
+            juegoMiniMaxProvider.resultado,
             style: GoogleFonts.roboto(
               color: Colors.white,
               fontWeight: FontWeight.bold,
@@ -45,7 +47,9 @@ class FloatingMessage extends StatelessWidget {
               ElevatedButton(
                 onPressed: (){
                   juegoProvider.isWinner=false;
+                  juegoMiniMaxProvider.isWinner=false;
                   juegoProvider.resetStates();
+                  juegoMiniMaxProvider.resetStates();
                 }, 
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal:10.0),
@@ -64,6 +68,8 @@ class FloatingMessage extends StatelessWidget {
                 onPressed: (){
                   Navigator.pop(context);
                   juegoProvider.isWinner=false;
+                  juegoMiniMaxProvider.isWinner=false;
+
                 }, 
                 child: const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 25.0),

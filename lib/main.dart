@@ -8,6 +8,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: ( _ ) => JuegoProvider()),
+        ChangeNotifierProvider(create: ( _ ) => JuegoMiniMaxProvider()),
       ],
       child: const  MyApp(),
     )

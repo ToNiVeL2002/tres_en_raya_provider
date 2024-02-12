@@ -10,36 +10,58 @@ class SinglePlayerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final juegoProvider = Provider.of<JuegoProvider>(context);
+    final juegoMiniMaxProvider = Provider.of<JuegoMiniMaxProvider>(context);
 
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 23),
-        child: Column(
+      body: Stack(
+        children: [
+          _Body(),
+
+          juegoMiniMaxProvider.winner
+            ? Align(
+                alignment: Alignment.center,
+                child: FloatingMessage(ganador: '',),
+              )
+            : Container()
           
-          children: [
-            PageTitle(),
-
-            const SizedBox(height: 46,),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                CardProfile(color: const Color(0xff1263FF), imagen: 'assets/player1.png', imagenSimbolo: 'assets/X.png', nameT: 'Jugador1', width: juegoProvider.playerTurn ? 151 : 121, height: juegoProvider.playerTurn ? 207 : 177,),
-                CardProfile(color: const Color(0xffEF5F5F), imagen: 'assets/player2.png', imagenSimbolo: 'assets/circulo.png', nameT: 'Jugador2', width: !juegoProvider.playerTurn ? 151 : 121, height: !juegoProvider.playerTurn ? 207 : 177,),
-              ],
-            ), 
-
-            const SizedBox(height: 60,),
-
-            _GameBody(),
-
-            const SizedBox(height: 10,),
-            
-        
-          ],
-        ),
+        ],
       )
+    );
+  }
+}
+
+class _Body extends StatelessWidget {
+  _Body({super.key,});
+
+  @override
+  Widget build(BuildContext context) {
+
+  final juegoMiniMaxProvider = Provider.of<JuegoMiniMaxProvider>(context);
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 23),
+      child: Column(
+        
+        children: [
+          PageTitle(),
+    
+          const SizedBox(height: 46,),
+    
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CardProfile(color: const Color(0xff1263FF), imagen: 'assets/player1.png', imagenSimbolo: 'assets/X.png', nameT: 'Jugador1', width: juegoMiniMaxProvider.playerTurn ? 151 : 121, height: juegoMiniMaxProvider.playerTurn ? 207 : 177,),
+              CardProfile(color: const Color(0xffEF5F5F), imagen: 'assets/player2.png', imagenSimbolo: 'assets/circulo.png', nameT: 'Jugador2', width: !juegoMiniMaxProvider.playerTurn ? 151 : 121, height: !juegoMiniMaxProvider.playerTurn ? 207 : 177,),
+            ],
+          ), 
+    
+          const SizedBox(height: 60,),
+    
+          _GameBody(),
+          
+          const SizedBox(height: 10,)
+      
+        ],
+      ),
     );
   }
 }
@@ -52,7 +74,7 @@ class _GameBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    final juegoProvider = Provider.of<JuegoProvider>(context);
+    final juegoMiniMaxProvider = Provider.of<JuegoMiniMaxProvider>(context);
 
     return Container(
       width: 344,
@@ -69,7 +91,7 @@ class _GameBody extends StatelessWidget {
         )
       ),
 
-      child: _Positions(juegoProvider: juegoProvider)
+      child: _Positions(juegoMiniMaxProvider: juegoMiniMaxProvider)
     );
   }
 }
@@ -77,10 +99,10 @@ class _GameBody extends StatelessWidget {
 class _Positions extends StatelessWidget {
   const _Positions({
     super.key,
-    required this.juegoProvider,
+    required this.juegoMiniMaxProvider,
   });
 
-  final JuegoProvider juegoProvider;
+  final JuegoMiniMaxProvider juegoMiniMaxProvider;
 
   @override
   Widget build(BuildContext context) {
@@ -92,63 +114,40 @@ class _Positions extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () { 
-                juegoProvider.changePositionMap('box1');
-                juegoProvider.changeState('box1');
+                if (juegoMiniMaxProvider.playerTurn && juegoMiniMaxProvider.boxState['box1']) {
+                  juegoMiniMaxProvider.changePositionMap('box1');
+                  juegoMiniMaxProvider.changeState('box1');
+                  juegoMiniMaxProvider.fineTheWinner();
+                  if (!juegoMiniMaxProvider.winner) {
+                    // Llamar a la función de la IA para que haga su movimiento
+                    // juegoMiniMaxProvider.
+                    // juegoMiniMaxProvider.makeAIMove();
+                  }
+                }
                 
               },
     
-              child: Box(disponible: juegoProvider.boxState['box1'], imagen: juegoProvider.positionMap['box1'] ? 'assets/X.png' : 'assets/circulo.png',),
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box1'], imagen: juegoMiniMaxProvider.positionMap['box1'] ? 'assets/X.png' : 'assets/circulo.png',),
             ),
             GestureDetector(
               onTap: () { 
-                juegoProvider.changePositionMap('box2');
-                juegoProvider.changeState('box2');
+                juegoMiniMaxProvider.changePositionMap('box2');
+                juegoMiniMaxProvider.changeState('box2');
+                juegoMiniMaxProvider.fineTheWinner();
                 
               },
     
-              child: Box(disponible: juegoProvider.boxState['box2'], imagen: juegoProvider.positionMap['box2'] ? 'assets/X.png' : 'assets/circulo.png',),
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box2'], imagen: juegoMiniMaxProvider.positionMap['box2'] ? 'assets/X.png' : 'assets/circulo.png',),
             ),
             GestureDetector(
               onTap: () { 
-                juegoProvider.changePositionMap('box3');
-                juegoProvider.changeState('box3');
+                juegoMiniMaxProvider.changePositionMap('box3');
+                juegoMiniMaxProvider.changeState('box3');
+                juegoMiniMaxProvider.fineTheWinner();
                 
               },
     
-              child: Box(disponible: juegoProvider.boxState['box3'], imagen: juegoProvider.positionMap['box3'] ? 'assets/X.png' : 'assets/circulo.png',),
-            ),
-          ],
-        ),
-    
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            GestureDetector(
-              onTap: () { 
-                juegoProvider.changePositionMap('box4');
-                juegoProvider.changeState('box4');
-                
-              },
-    
-              child: Box(disponible: juegoProvider.boxState['box4'], imagen: juegoProvider.positionMap['box4'] ? 'assets/X.png' : 'assets/circulo.png',),
-            ),
-            GestureDetector(
-              onTap: () { 
-                juegoProvider.changePositionMap('box5');
-                juegoProvider.changeState('box5');
-                
-              },
-    
-              child: Box(disponible: juegoProvider.boxState['box5'], imagen: juegoProvider.positionMap['box5'] ? 'assets/X.png' : 'assets/circulo.png',),
-            ),
-            GestureDetector(
-              onTap: () { 
-                juegoProvider.changePositionMap('box6');
-                juegoProvider.changeState('box6');
-                
-              },
-    
-              child: Box(disponible: juegoProvider.boxState['box6'], imagen: juegoProvider.positionMap['box6'] ? 'assets/X.png' : 'assets/circulo.png',),
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box3'], imagen: juegoMiniMaxProvider.positionMap['box3'] ? 'assets/X.png' : 'assets/circulo.png',),
             ),
           ],
         ),
@@ -158,30 +157,69 @@ class _Positions extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () { 
-                juegoProvider.changePositionMap('box7');
-                juegoProvider.changeState('box7');
+                juegoMiniMaxProvider.changePositionMap('box4');
+                juegoMiniMaxProvider.changeState('box4');
+                juegoMiniMaxProvider.fineTheWinner();
                 
               },
     
-              child: Box(disponible: juegoProvider.boxState['box7'], imagen: juegoProvider.positionMap['box7'] ? 'assets/X.png' : 'assets/circulo.png',),
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box4'], imagen: juegoMiniMaxProvider.positionMap['box4'] ? 'assets/X.png' : 'assets/circulo.png',),
             ),
             GestureDetector(
               onTap: () { 
-                juegoProvider.changePositionMap('box8');
-                juegoProvider.changeState('box8');
+                juegoMiniMaxProvider.changePositionMap('box5');
+                juegoMiniMaxProvider.changeState('box5');
+                juegoMiniMaxProvider.fineTheWinner();
                 
               },
     
-              child: Box(disponible: juegoProvider.boxState['box8'], imagen: juegoProvider.positionMap['box8'] ? 'assets/X.png' : 'assets/circulo.png',),
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box5'], imagen: juegoMiniMaxProvider.positionMap['box5'] ? 'assets/X.png' : 'assets/circulo.png',),
             ),
             GestureDetector(
               onTap: () { 
-                juegoProvider.changePositionMap('box9');
-                juegoProvider.changeState('box9');
+                juegoMiniMaxProvider.changePositionMap('box6');
+                juegoMiniMaxProvider.changeState('box6');
+                juegoMiniMaxProvider.fineTheWinner();
                 
               },
     
-              child: Box(disponible: juegoProvider.boxState['box9'], imagen: juegoProvider.positionMap['box9'] ? 'assets/X.png' : 'assets/circulo.png',),
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box6'], imagen: juegoMiniMaxProvider.positionMap['box6'] ? 'assets/X.png' : 'assets/circulo.png',),
+            ),
+          ],
+        ),
+    
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            GestureDetector(
+              onTap: () { 
+                juegoMiniMaxProvider.changePositionMap('box7');
+                juegoMiniMaxProvider.changeState('box7');
+                juegoMiniMaxProvider.fineTheWinner();
+                
+              },
+    
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box7'], imagen: juegoMiniMaxProvider.positionMap['box7'] ? 'assets/X.png' : 'assets/circulo.png',),
+            ),
+            GestureDetector(
+              onTap: () { 
+                juegoMiniMaxProvider.changePositionMap('box8');
+                juegoMiniMaxProvider.changeState('box8');
+                juegoMiniMaxProvider.fineTheWinner();
+                
+              },
+    
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box8'], imagen: juegoMiniMaxProvider.positionMap['box8'] ? 'assets/X.png' : 'assets/circulo.png',),
+            ),
+            GestureDetector(
+              onTap: () { 
+                juegoMiniMaxProvider.changePositionMap('box9');
+                juegoMiniMaxProvider.changeState('box9');
+                juegoMiniMaxProvider.fineTheWinner();
+                
+              },
+    
+              child: Box(disponible: juegoMiniMaxProvider.boxState['box9'], imagen: juegoMiniMaxProvider.positionMap['box9'] ? 'assets/X.png' : 'assets/circulo.png',),
             ),
           ],
         ),
