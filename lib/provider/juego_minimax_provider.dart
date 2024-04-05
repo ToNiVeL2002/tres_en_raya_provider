@@ -58,13 +58,12 @@ class JuegoMiniMaxProvider extends ChangeNotifier {
   void changePositionMap(String boxId) {
     if (_boxStates[boxId] == true && !_winner) {
       _positionMap[boxId] = _playerTurn;
-      changeState(boxId); // Actualiza el estado del tablero con la selección del jugador
-      fineTheWinner(); // Verifica si hay un ganador después de la selección del jugador
-      // Cambia el turno del jugador después de que ambos hayan hecho su movimiento
+      changeState(boxId); 
+      fineTheWinner(); 
       _playerTurn = !_playerTurn;
       if (!_winner && !_playerTurn) {
-        // Si no hay ganador y es el turno de la IA
-        makeAIMove(); // La IA hace su movimiento
+        
+        makeAIMove(); 
       }
       notifyListeners();
     }
@@ -179,7 +178,7 @@ class JuegoMiniMaxProvider extends ChangeNotifier {
 
     // Si es el turno de la máquina (maximizar)
     if (isMaximizing) {
-      int bestScore = -1000;
+      int bestScore = -100000;
       // Recorrer todo el tablero
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -199,7 +198,7 @@ class JuegoMiniMaxProvider extends ChangeNotifier {
       return bestScore;
     } else {
       // Si es el turno del jugador (minimizar)
-      int bestScore = 1000;
+      int bestScore = 100000;
       // Recorrer todo el tablero
       for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
@@ -221,7 +220,6 @@ class JuegoMiniMaxProvider extends ChangeNotifier {
   }
 
 
-  // Función para encontrar el mejor movimiento usando minimax
   // Función para encontrar el mejor movimiento usando minimax
   List<int> findBestMove() {
     int bestScore = -1000;
@@ -257,8 +255,7 @@ class JuegoMiniMaxProvider extends ChangeNotifier {
       String boxId = 'box${row * 3 + col + 1}'; // Calcular el ID de la casilla correspondiente al movimiento
       changeState(boxId); // Cambiar el estado de la casilla
       // Actualizar el mapa de posiciones con el símbolo correspondiente
-      _positionMap[boxId] = _playerTurn ? true : false; // Si es el turno del jugador, colocamos 'x', de lo contrario 'o'
-      // fineTheWinner(); // Verificar si hay un ganador después del movimiento de la IA
+      _positionMap[boxId] = false; 
 
       // Cambiar el turno del jugador después de que ambos hayan hecho su movimiento
       _playerTurn = !_playerTurn;

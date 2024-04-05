@@ -20,7 +20,7 @@ class MultiPlayerScreen extends StatelessWidget {
           juegoProvider.winner
             ? Align(
                 alignment: Alignment.center,
-                child: FloatingMessage(ganador: '',),
+                child: FloatingMessage(ganador: juegoProvider.resultado,),
               )
             : Container()
           
