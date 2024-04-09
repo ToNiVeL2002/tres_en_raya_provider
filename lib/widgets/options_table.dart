@@ -48,12 +48,20 @@ class _SingleCard extends StatelessWidget {
 
     final juegoProvider = Provider.of<JuegoProvider>(context);
     final juegoMiniMaxProvider = Provider.of<JuegoMiniMaxProvider>(context);
+    final uiProvider = Provider.of<UIProvider>(context);
 
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, direccion);
         juegoProvider.resetStates();
         juegoMiniMaxProvider.resetStates();
+
+        if (direccion == 'multiplayer') {
+          uiProvider.isMultiplayerr = true;
+        } else {
+          uiProvider.isMultiplayerr = false;
+        }
+        
       },
       child: Container(
         margin: const EdgeInsets.all(7.5),

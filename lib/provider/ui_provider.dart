@@ -4,6 +4,8 @@ class UIProvider extends ChangeNotifier  {
 
   ThemeData theme;
 
+  bool _isMultiplayer = true;
+
   UIProvider({
     required bool isDarkMode
   }) : theme = isDarkMode ? ThemeData.dark() : ThemeData.light(); 
@@ -18,6 +20,12 @@ class UIProvider extends ChangeNotifier  {
     theme = ThemeData.dark();
     
     notifyListeners();
+  }
+
+  get isMultiplayer => _isMultiplayer;
+
+  set isMultiplayerr(bool flag) {
+    _isMultiplayer = flag;
   }
 }
 
